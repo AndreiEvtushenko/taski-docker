@@ -168,7 +168,7 @@ jobs:
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
-        host: "158.160.72.126"
+        host: 158.160.72.126
         username: "yc-user"
         key: "ssh -i /root/.ssh/keys/yc-evtushenkoad yc-user@158.160.72.126"
         passphrase: "NRjeSf"
