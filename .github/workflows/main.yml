@@ -160,7 +160,7 @@ jobs:
     # Передаём параметры для action appleboy/scp-action:
       with:
         host: "158.160.72.126"
-        username: "yc-use"'
+        username: "yc-use"
         key: "ssh -i /root/.ssh/keys/yc-evtushenkoad yc-user@158.160.72.126"
         passphrase: "NRjeSf"
         source: "docker-compose.production.yml"
@@ -168,10 +168,10 @@ jobs:
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        host: "158.160.72.126"
+        username: "yc-use"
+        key: "ssh -i /root/.ssh/keys/yc-evtushenkoad yc-user@158.160.72.126"
+        passphrase: "NRjeSf"
         # Параметр script передаёт в action appleboy/ssh-action команды,
         # которые нужно выполнить на сервере, 
         # с которым установлено соединение
@@ -186,4 +186,3 @@ jobs:
           sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
           sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
           sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/
-
