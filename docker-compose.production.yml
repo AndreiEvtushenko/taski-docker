@@ -4,7 +4,6 @@ volumes:
   pg_data_production:
   static_volume:
 
-# Всё отличие — заменяем build на image и указываем, какой образ использовать
 services:
   db:
     image: postgres:13.10
@@ -14,20 +13,18 @@ services:
   backend:
     image: evtushenkoandrei/taski_backend
     env_file: .env
-    # Какие контейнеры нужно запустить до старта этого контейнера:
     depends_on:
       - db
     volumes:
       - static_volume:/backend_static
   frontend:
-    image: evtushenkoandrei/taski_frontend  # Качаем с Docker Hub
+    image: evtushenkoandrei/taski_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static:/frontend_static
-      #- static_volume:/frontend_static
+      - static_volume:/frontend_static
   gateway:
-    image: evtushenkoandrei/taski_gateway  # Качаем с Docker Hub
+    image: evtushenkoandrei/taski_gateway
     env_file: .env
     depends_on:
       - backend
@@ -35,4 +32,3 @@ services:
       - static_volume:/staticfiles/
     ports:
       - 8000:80
-
