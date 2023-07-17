@@ -5,11 +5,13 @@ volumes:
   static_volume:
 
 services:
+
   db:
     image: postgres:13.10
     env_file: .env
     volumes:
       - pg_data_production:/var/lib/postgresql/data
+
   backend:
     image: evtushenkoandrei/taski_backend
     env_file: .env
@@ -17,15 +19,16 @@ services:
       - db
     volumes:
       - static_volume:/backend_static
+
   frontend:
-    image: evtushenkoandrei/taski_frontend
     env_file: .env
+    image: evtushenkoandrei/taski_frontend
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static_volume:/frontend_static
+
   gateway:
     image: evtushenkoandrei/taski_gateway
-    env_file: .env
     depends_on:
       - backend
     volumes:
